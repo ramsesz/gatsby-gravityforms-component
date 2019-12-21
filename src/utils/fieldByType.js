@@ -7,6 +7,8 @@ import Radio from '../components/Radio'
 import Select from '../components/Select'
 import Textarea from '../components/Textarea'
 import { getPlacement, ifDefaultValue } from './inputSettings'
+import React from 'react'
+import get from 'lodash/get'
 
 export const fieldByType = (
     field,
@@ -55,8 +57,8 @@ export const fieldByType = (
                     required={field.isRequired}
                     type={field.type}
                     value={
-                        _.get(presetValues, `input_${field.id}`, false)
-                            ? _.get(presetValues, `input_${field.id}`, false)
+                        get(presetValues, `input_${field.id}`, false)
+                            ? get(presetValues, `input_${field.id}`, false)
                             : ifDefaultValue(field)
                     }
                     wrapClassName={inputWrapperClass}
@@ -82,8 +84,8 @@ export const fieldByType = (
                     required={field.isRequired}
                     type={field.type}
                     value={
-                        _.get(presetValues, `input_${field.id}`, false)
-                            ? _.get(presetValues, `input_${field.id}`, false)
+                        get(presetValues, `input_${field.id}`, false)
+                            ? get(presetValues, `input_${field.id}`, false)
                             : ifDefaultValue(field)
                     }
                     wrapClassName={inputWrapperClass}
@@ -149,8 +151,8 @@ export const fieldByType = (
                     required={field.isRequired}
                     type={field.type}
                     value={
-                        _.get(presetValues, `input_${field.id}`, false)
-                            ? _.get(presetValues, `input_${field.id}`, false)
+                        get(presetValues, `input_${field.id}`, false)
+                            ? get(presetValues, `input_${field.id}`, false)
                             : ifDefaultValue(field)
                     }
                     wrapClassName={inputWrapperClass}
@@ -214,8 +216,8 @@ export const fieldByType = (
                     required={field.isRequired}
                     type={field.type}
                     value={
-                        _.get(presetValues, `input_${field.id}`, false)
-                            ? _.get(presetValues, `input_${field.id}`, false)
+                        get(presetValues, `input_${field.id}`, false)
+                            ? get(presetValues, `input_${field.id}`, false)
                             : ifDefaultValue(field)
                     }
                     wrapClassName={inputWrapperClass}
