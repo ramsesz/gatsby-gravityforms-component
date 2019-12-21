@@ -31,7 +31,9 @@ const Input = ({
         >
             <label className="gravityform__label" htmlFor={name}>
                 {label}
-                {maxLength > 0 && maxLengthSentence(maxLength, type)}
+                {maxLength &&
+                    maxLength > 0 &&
+                    maxLengthSentence(maxLength, type)}
             </label>
             {outputDescription(description, descriptionPlacement, 'above')}
             <input
