@@ -22,7 +22,13 @@ import passToGravityForms from './utils/passToGravityForms'
  *                              netlify or similar
  */
 
-const GravityFormForm = ({ id, formData, lambda, presetValues = {} }) => {
+const GravityFormForm = ({
+    id,
+    formData,
+    lambda,
+    presetValues = {},
+    customComponents = {},
+}) => {
     // Pull in form functions
     const { errors, handleSubmit, register, setError } = useForm()
 
@@ -106,6 +112,7 @@ const GravityFormForm = ({ id, formData, lambda, presetValues = {} }) => {
                         formId={id}
                         presetValues={presetValues}
                         register={register}
+                        customComponents={customComponents}
                     />
                     <button className="gravityform__button" type="submit">
                         {singleForm.button.text

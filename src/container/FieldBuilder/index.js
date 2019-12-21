@@ -33,18 +33,19 @@ const FieldBuilder = ({
 
         let errorKey = ''
 
-        const newField =
-            customComponents[field.type] ||
-            fieldByType(
-                field,
-                inputWrapperClass,
-                formSettings,
-                errorKey,
-                errors,
-                register,
-                presetValues,
-                customComponents
-            )
+        const customComponent = customComponents[field.type] || null
+        const newField = customComponent
+            ? customComponent
+            : fieldByType(
+                  field,
+                  inputWrapperClass,
+                  formSettings,
+                  errorKey,
+                  errors,
+                  register,
+                  presetValues,
+                  customComponents
+              )
 
         const result = {
             ...previous,
