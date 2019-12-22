@@ -63,10 +63,8 @@ const FieldBuilder = ({
         return result
     }, {})
 
-    console.log(sections)
     return Object.keys(sections).map(sectionKey => {
         const section = sections[sectionKey]
-        console.log(section)
         return (
             <div
                 className={`form-field-group ${sectionKey}`}
