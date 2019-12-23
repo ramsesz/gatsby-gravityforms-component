@@ -33,19 +33,21 @@ const FieldBuilder = ({
 
         const errorKey = ``
 
-        const customComponent = customComponents[field.type] || null
-        const newField = customComponent
-            ? customComponent
-            : fieldByType(
-                  field,
-                  inputWrapperClass,
-                  formSettings,
-                  errorKey,
-                  errors,
-                  register,
-                  presetValues,
-                  customComponents
-              )
+        const CustomComponent = customComponents[field.type] || null
+        const newField = CustomComponent ? (
+            <CustomComponent key={field.id} />
+        ) : (
+            fieldByType(
+                field,
+                inputWrapperClass,
+                formSettings,
+                errorKey,
+                errors,
+                register,
+                presetValues,
+                customComponents
+            )
+        )
 
         const result = {
             ...previous,
@@ -70,9 +72,11 @@ const FieldBuilder = ({
                 className={`form-field-group ${sectionKey}`}
                 key={`section-` + section.properties.label}
             >
-                <div>
-                    <h3>{section.properties.label}</h3>
-                </div>
+                {section.properties && (
+                    <div>
+                        <h3>{section.properties.label}</h3>
+                    </div>
+                )}
                 {section.fields}
             </div>
         )

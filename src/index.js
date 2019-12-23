@@ -1,3 +1,4 @@
+import debug from 'debug'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import useForm from 'react-hook-form/dist/react-hook-form.ie11'
@@ -22,6 +23,8 @@ import passToGravityForms from './utils/passToGravityForms'
  *                              netlify or similar
  */
 
+const log = debug(`topco:GravityFormForm:`)
+
 const GravityFormForm = ({
     id,
     formData,
@@ -42,6 +45,7 @@ const GravityFormForm = ({
     const singleForm = getForm(formData, id)
 
     const onSubmitCallback = async values => {
+        log(values)
         // Make sure we are not already waiting for a response
         if (!formLoading) {
             setLoadingState(true)
@@ -118,7 +122,6 @@ const GravityFormForm = ({
                         {singleForm.button.text
                             ? singleForm.button.text
                             : `Submit`}
-                        {` `}
                         {formLoading && (
                             <span className="gravityform__button__loading_span">
                                 Loading
