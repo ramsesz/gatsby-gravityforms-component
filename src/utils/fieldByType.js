@@ -19,7 +19,6 @@ export const fieldByType = (
     register,
     presetValues
 ) => {
-    console.log(field)
     switch (field.type) {
         // Add note for unsupported captcha field
         case 'captcha':
