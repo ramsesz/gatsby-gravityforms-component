@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default async (baseUrl, formData, lambdaEndpoint) => {
-    let lambaData = {
+    const lambaData = {
         baseUrl: baseUrl,
         payload: formData,
     }
@@ -10,7 +10,7 @@ export default async (baseUrl, formData, lambdaEndpoint) => {
 
     try {
         result = await axios.post(lambdaEndpoint, {
-            responseType: 'json',
+            responseType: `json`,
             withCredentials: true,
             crossdomain: true,
             data: lambaData,
@@ -18,13 +18,13 @@ export default async (baseUrl, formData, lambdaEndpoint) => {
     } catch (err) {
         // Pass back error
         return {
-            status: 'error',
+            status: `error`,
             data: err.response,
         }
     }
 
     return {
-        status: 'success',
+        status: `success`,
         data: result,
     }
 }

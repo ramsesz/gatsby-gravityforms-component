@@ -15,41 +15,37 @@ const Multiselect = ({
     register,
     required,
     wrapClassName,
-}) => {
-    return (
-        <div className={wrapClassName}>
-            <label className="gravityform__label" htmlFor={name}>
-                {label}
-            </label>
-            {outputDescription(description, descriptionPlacement, 'above')}
-            <select
-                className={classnames(
-                    'gravityform__field__input__select',
-                    className
-                )}
-                id={name}
-                name={name}
-                onChange={handleChange}
-                ref={register({
-                    required: required,
-                })}
-            >
-                {options.map((choice, index) => {
-                    return (
-                        <option
-                            defaultValue={choice.isSelected}
-                            key={`${id}_${index}`}
-                            value={choice.value}
-                        >
-                            {choice.text}
-                        </option>
-                    )
-                })}
-            </select>
-            {outputDescription(description, descriptionPlacement, 'below')}
-        </div>
-    )
-}
+}) => (
+    <div className={wrapClassName}>
+        <label className="gravityform__label" htmlFor={name}>
+            {label}
+        </label>
+        {outputDescription(description, descriptionPlacement, `above`)}
+        <select
+            className={classnames(
+                `gravityform__field__input__select`,
+                className
+            )}
+            id={name}
+            name={name}
+            onChange={handleChange}
+            ref={register({
+                required: required,
+            })}
+        >
+            {options.map((choice, index) => (
+                <option
+                    defaultValue={choice.isSelected}
+                    key={`${id}_${index}`}
+                    value={choice.value}
+                >
+                    {choice.text}
+                </option>
+            ))}
+        </select>
+        {outputDescription(description, descriptionPlacement, `below`)}
+    </div>
+)
 
 export default Multiselect
 

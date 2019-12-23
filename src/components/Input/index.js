@@ -26,7 +26,7 @@ const Input = ({
         <div
             className={classnames(
                 wrapClassName,
-                errors && 'gravityform__field--error'
+                errors && `gravityform__field--error`
             )}
         >
             <label className="gravityform__label" htmlFor={name}>
@@ -35,10 +35,10 @@ const Input = ({
                     maxLength > 0 &&
                     maxLengthSentence(maxLength, type)}
             </label>
-            {outputDescription(description, descriptionPlacement, 'above')}
+            {outputDescription(description, descriptionPlacement, `above`)}
             <input
                 className={classnames(
-                    'gravityform__field__input',
+                    `gravityform__field__input`,
                     `gravityform__field__input__${type}`,
                     className
                 )}
@@ -62,7 +62,7 @@ const Input = ({
                 })}
                 type={type}
             />
-            {outputDescription(description, descriptionPlacement, 'below')}
+            {outputDescription(description, descriptionPlacement, `below`)}
             {errors && (
                 <div className="gravityform__error_message">
                     {errors.message}
@@ -75,7 +75,7 @@ const Input = ({
 export default Input
 
 const maxLengthSentence = (length, type) => {
-    let word = type === 'number' ? 'numbers' : 'characters'
+    const word = type === `number` ? `numbers` : `characters`
     return length && ` (maxiumum ${length} ${word})`
 }
 

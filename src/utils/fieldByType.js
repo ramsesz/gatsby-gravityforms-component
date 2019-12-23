@@ -1,4 +1,5 @@
-import { filteredKeys } from '../utils/helpers'
+import get from 'lodash/get'
+import React from 'react'
 import Checkbox from '../components/Checkbox'
 import Html from '../components/Html'
 import Input from '../components/Input'
@@ -6,9 +7,8 @@ import Multiselect from '../components/Multiselect'
 import Radio from '../components/Radio'
 import Select from '../components/Select'
 import Textarea from '../components/Textarea'
+import { filteredKeys } from '../utils/helpers'
 import { getPlacement, ifDefaultValue } from './inputSettings'
-import React from 'react'
-import get from 'lodash/get'
 
 export const fieldByType = (
     field,
@@ -21,7 +21,7 @@ export const fieldByType = (
 ) => {
     switch (field.type) {
         // Add note for unsupported captcha field
-        case 'captcha':
+        case `captcha`:
             return (
                 <p>
                     <strong>
@@ -32,11 +32,11 @@ export const fieldByType = (
                 </p>
             )
         // Start with the standard fields
-        case 'text':
-        case 'email':
-        case 'phone':
-        case 'name':
-        case 'address':
+        case `text`:
+        case `email`:
+        case `phone`:
+        case `name`:
+        case `address`:
             return (
                 <Input
                     className={field.cssClass}
@@ -63,7 +63,7 @@ export const fieldByType = (
                     wrapClassName={inputWrapperClass}
                 />
             )
-        case 'textarea':
+        case `textarea`:
             return (
                 <Textarea
                     className={field.cssClass}
@@ -90,7 +90,7 @@ export const fieldByType = (
                     wrapClassName={inputWrapperClass}
                 />
             )
-        case 'select':
+        case `select`:
             return (
                 <Select
                     className={field.cssClass}
@@ -110,7 +110,7 @@ export const fieldByType = (
                     wrapClassName={inputWrapperClass}
                 />
             )
-        case 'multiselect':
+        case `multiselect`:
             return (
                 <Multiselect
                     className={field.cssClass}
@@ -130,7 +130,7 @@ export const fieldByType = (
                     wrapClassName={inputWrapperClass}
                 />
             )
-        case 'number':
+        case `number`:
             return (
                 <Input
                     className={field.cssClass}
@@ -157,7 +157,7 @@ export const fieldByType = (
                     wrapClassName={inputWrapperClass}
                 />
             )
-        case 'checkbox':
+        case `checkbox`:
             errorKey = filteredKeys(errors, RegExp(`input_${field.id}_`))
             return (
                 <Checkbox
@@ -177,7 +177,7 @@ export const fieldByType = (
                     wrapClassName={inputWrapperClass}
                 />
             )
-        case 'radio':
+        case `radio`:
             errorKey = filteredKeys(errors, RegExp(`input_${field.id}_`))
             return (
                 <Radio
@@ -197,7 +197,7 @@ export const fieldByType = (
                     wrapClassName={inputWrapperClass}
                 />
             )
-        case 'hidden':
+        case `hidden`:
             return (
                 <Input
                     className={field.cssClass}
@@ -222,7 +222,7 @@ export const fieldByType = (
                     wrapClassName={inputWrapperClass}
                 />
             )
-        case 'html':
+        case `html`:
             return (
                 <Html
                     className={field.cssClass}

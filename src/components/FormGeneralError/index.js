@@ -2,17 +2,17 @@ import React from 'react'
 import strings from '../../utils/strings'
 
 const FormGeneralError = props => {
-    let errorMessage = ''
+    let errorMessage = ``
 
-    if (props.errorCode === 'formHasError') {
+    if (props.errorCode === `formHasError`) {
         errorMessage = strings.errors.general
     }
 
-    if (props.errorCode === 'unknownError') {
+    if (props.errorCode === `unknownError`) {
         errorMessage = strings.errors.unknownError
     }
 
-    if (props.errorCode === 'leastOneField') {
+    if (props.errorCode === `leastOneField`) {
         errorMessage = strings.errors.leastOneField
     }
 

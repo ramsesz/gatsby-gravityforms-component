@@ -22,16 +22,16 @@ const FieldBuilder = ({
     // Loop through fields and create
     const sections = formData.formFields.reduce((previous, field) => {
         // Set the wrapper classes
-        let inputWrapperClass = classnames(
-            'gravityform__field',
-            'gravityform__field__' + field.type,
-            'gravityform__field--' + field.size,
+        const inputWrapperClass = classnames(
+            `gravityform__field`,
+            `gravityform__field__` + field.type,
+            `gravityform__field--` + field.size,
             field.cssClass,
             { 'field-required': field.isRequired },
             { 'hidden-label': islabelHidden(field.labelPlacement) }
         )
 
-        let errorKey = ''
+        const errorKey = ``
 
         const customComponent = customComponents[field.type] || null
         const newField = customComponent
@@ -49,15 +49,15 @@ const FieldBuilder = ({
 
         const result = {
             ...previous,
-            ['section-' + i]: {
+            [`section-` + i]: {
                 properties: field.type === `section` && field,
-                fields: get(previous, 'section-' + i)
-                    ? [...get(previous, 'section-' + i).fields, newField]
+                fields: get(previous, `section-` + i)
+                    ? [...get(previous, `section-` + i).fields, newField]
                     : [newField],
             },
         }
 
-        if (field.type === 'section') {
+        if (field.type === `section`) {
             i++
         }
         return result

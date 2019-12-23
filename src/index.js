@@ -32,11 +32,11 @@ const GravityFormForm = ({
     // Pull in form functions
     const { errors, handleSubmit, register, setError } = useForm()
 
-    const [generalError, setGeneralError] = useState('')
+    const [generalError, setGeneralError] = useState(``)
     const [formLoading, setLoadingState] = useState(false)
 
     // State for confirmation message
-    const [confirmationMessage, setConfirmationMessage] = useState('')
+    const [confirmationMessage, setConfirmationMessage] = useState(``)
 
     // Take ID argument and graphQL Gravity Form data for this form
     const singleForm = getForm(formData, id)
@@ -47,7 +47,7 @@ const GravityFormForm = ({
             setLoadingState(true)
 
             // Clean error
-            setGeneralError('')
+            setGeneralError(``)
 
             // Check that at least one field has been filled in
             if (submissionHasOneFieldEntry(values)) {
@@ -59,12 +59,12 @@ const GravityFormForm = ({
 
                 setLoadingState(false)
 
-                if (restResponse.status === 'error') {
+                if (restResponse.status === `error`) {
                     // Handle the errors
                     // First check to make sure we have the correct data
                     if (doesObjectExist(restResponse.data)) {
                         // Validation errors passed back by Gravity Forms
-                        if (restResponse.data.status === 'gravityFormErrors') {
+                        if (restResponse.data.status === `gravityFormErrors`) {
                             // Pass messages to handle that sets react-hook-form errors
                             handleGravityFormsValidationErrors(
                                 restResponse.data.validation_messages,
@@ -74,17 +74,17 @@ const GravityFormForm = ({
                     } else {
                         console.log(restResponse)
                         // Seemed to be an unknown issue
-                        setGeneralError('unknownError')
+                        setGeneralError(`unknownError`)
                     }
                 }
 
-                if (restResponse.status === 'success') {
+                if (restResponse.status === `success`) {
                     setConfirmationMessage(
                         restResponse.data.data.confirmation_message
                     )
                 }
             } else {
-                setGeneralError('leastOneField')
+                setGeneralError(`leastOneField`)
             }
         }
     }
@@ -107,17 +107,18 @@ const GravityFormForm = ({
                     )}
 
                     <FieldBuilder
+                        customComponents={customComponents}
                         errors={errors}
                         formData={singleForm}
                         formId={id}
                         presetValues={presetValues}
                         register={register}
-                        customComponents={customComponents}
                     />
                     <button className="gravityform__button" type="submit">
                         {singleForm.button.text
                             ? singleForm.button.text
-                            : 'Submit'}{' '}
+                            : `Submit`}
+                        {` `}
                         {formLoading && (
                             <span className="gravityform__button__loading_span">
                                 Loading
@@ -135,7 +136,7 @@ const GravityFormForm = ({
 export default GravityFormForm
 
 GravityFormForm.defaultProps = {
-    lambda: '',
+    lambda: ``,
 }
 
 GravityFormForm.propTypes = {

@@ -24,9 +24,9 @@ export function outputDescription(description, placement, currentPosition) {
 }
 
 export function islabelHidden(label) {
-    return label === 'hidden_label' ? true : false
+    return label === `hidden_label` ? true : false
 }
 
 export function ifDefaultValue(field) {
-    return field['defaultValue'] !== 'undefined' ? field['defaultValue'] : false
+    return field[`defaultValue`] !== `undefined` ? field[`defaultValue`] : false
 }

@@ -26,17 +26,17 @@ const Textarea = ({
         <div
             className={classnames(
                 wrapClassName,
-                errors && 'gravityform__field--error'
+                errors && `gravityform__field--error`
             )}
         >
             <label className="gravityform__label" htmlFor={name}>
                 {label}
                 {maxLength > 0 && `(maxiumum ${maxLength} characters)`}
             </label>
-            {outputDescription(description, descriptionPlacement, 'above')}
+            {outputDescription(description, descriptionPlacement, `above`)}
             <textarea
                 className={classnames(
-                    'gravityform__field__input',
+                    `gravityform__field__input`,
                     `gravityform__field__input__${type}`,
                     className
                 )}
@@ -60,7 +60,7 @@ const Textarea = ({
                 })}
                 type={type}
             />
-            {outputDescription(description, descriptionPlacement, 'below')}
+            {outputDescription(description, descriptionPlacement, `below`)}
             {errors && (
                 <div className="gravityform__error_message">
                     {errors.message}

@@ -1,11 +1,11 @@
-const axios = require('axios')
-const nanoid = require('nanoid')
-const oauthSignature = require('oauth-signature')
+const axios = require(`axios`)
+const nanoid = require(`nanoid`)
+const oauthSignature = require(`oauth-signature`)
 
-let activeEnv =
-    process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || 'development'
+const activeEnv =
+    process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || `development`
 
-require('dotenv').config({
+require(`dotenv`).config({
     path: `.env.${activeEnv}`,
 })
 
@@ -18,19 +18,19 @@ const secretData = {
 // For those requests
 // Update with correct origin when on production!
 const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Origin': `*`,
+    'Access-Control-Allow-Headers': `Content-Type`,
 }
 
 exports.handler = async event => {
     // Make sure we are dealing with a POST request
-    if (event.httpMethod !== 'POST') {
+    if (event.httpMethod !== `POST`) {
         return {
             statusCode: 200, // <-- Important for CORS
             headers,
             body: JSON.stringify({
-                status: 'notPost',
-                message: 'This was not a POST request!',
+                status: `notPost`,
+                message: `This was not a POST request!`,
             }),
         }
     }
@@ -38,7 +38,7 @@ exports.handler = async event => {
     // Parse that post data body
     const data = JSON.parse(event.body)
 
-    const apiUrl = data.data.baseUrl + '/submissions'
+    const apiUrl = data.data.baseUrl + `/submissions`
 
     // Check we have the required data
     if (!apiUrl) {
@@ -46,8 +46,8 @@ exports.handler = async event => {
             statusCode: 424,
             headers,
             body: JSON.stringify({
-                status: 'missingApiData',
-                message: 'Required API data is missing',
+                status: `missingApiData`,
+                message: `Required API data is missing`,
             }),
         }
     }
@@ -55,7 +55,7 @@ exports.handler = async event => {
     // Now we can do the real work - Gravity Forms API stuff
     const authParams = new0AuthParameters(secretData.gfKey)
     const signature = oauthSignature.generate(
-        'POST',
+        `POST`,
         apiUrl,
         authParams,
         secretData.gfSecret
@@ -65,9 +65,9 @@ exports.handler = async event => {
 
     try {
         result = await axios({
-            method: 'post',
+            method: `post`,
             url: apiUrl,
-            responseType: 'json',
+            responseType: `json`,
             params: {
                 ...authParams,
                 oauth_signature: signature,
@@ -76,7 +76,7 @@ exports.handler = async event => {
         })
     } catch (error) {
         // Check the function log for this!
-        console.log('newGFEntry.js Error Data')
+        console.log(`newGFEntry.js Error Data`)
         console.log(error)
 
         const errorResponse = error.response.data
@@ -87,8 +87,8 @@ exports.handler = async event => {
                 statusCode: 422,
                 headers,
                 body: JSON.stringify({
-                    status: 'gravityFormErrors',
-                    message: 'Gravity Forms has flagged issues',
+                    status: `gravityFormErrors`,
+                    message: `Gravity Forms has flagged issues`,
                     validation_messages: errorResponse.validation_messages,
                 }),
             }
@@ -98,8 +98,8 @@ exports.handler = async event => {
                 statusCode: 400,
                 headers,
                 body: JSON.stringify({
-                    status: 'unknown',
-                    message: 'Something went wrong',
+                    status: `unknown`,
+                    message: `Something went wrong`,
                 }),
             }
         }
@@ -109,8 +109,8 @@ exports.handler = async event => {
         statusCode: 201,
         headers,
         body: JSON.stringify({
-            status: 'success',
-            message: 'Entry added to Gravity Forms',
+            status: `success`,
+            message: `Entry added to Gravity Forms`,
             confirmation_message: result.data.confirmation_message,
         }),
     }
@@ -124,8 +124,8 @@ function new0AuthParameters(consumerKey) {
     return {
         oauth_consumer_key: consumerKey,
         oauth_timestamp: getCurrentTimestamp(),
-        oauth_signature_method: 'HMAC-SHA1',
-        oauth_version: '1.0',
+        oauth_signature_method: `HMAC-SHA1`,
+        oauth_version: `1.0`,
         oauth_nonce: nanoid(11),
     }
 }

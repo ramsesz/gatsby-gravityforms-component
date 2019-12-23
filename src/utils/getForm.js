@@ -18,10 +18,10 @@ export default (formData, id) => {
         // Do so many crazy checks because each level needs checking
         // to stop errors
         if (
-            typeof form[0] !== 'undefined' &&
-            typeof form[0]['node'] !== 'undefined'
+            typeof form[0] !== `undefined` &&
+            typeof form[0][`node`] !== `undefined`
         ) {
-            return form[0]['node']
+            return form[0][`node`]
         }
     }
 

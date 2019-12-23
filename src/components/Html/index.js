@@ -13,26 +13,21 @@ const Html = ({
     name,
     type,
     wrapClassName,
-}) => {
-    return (
-        <div className={wrapClassName}>
-            <label className="gravityform__label" htmlFor={name}>
-                {label}
-            </label>
-            {outputDescription(description, descriptionPlacement, 'above')}
-            <div
-                className={classnames(
-                    'gravityform__' + type + '__wrap',
-                    className
-                )}
-            >
-                {ReactHtmlParser(content)}
-            </div>
-
-            {outputDescription(description, descriptionPlacement, 'below')}
+}) => (
+    <div className={wrapClassName}>
+        <label className="gravityform__label" htmlFor={name}>
+            {label}
+        </label>
+        {outputDescription(description, descriptionPlacement, `above`)}
+        <div
+            className={classnames(`gravityform__` + type + `__wrap`, className)}
+        >
+            {ReactHtmlParser(content)}
         </div>
-    )
-}
+
+        {outputDescription(description, descriptionPlacement, `below`)}
+    </div>
+)
 
 export default Html
 
