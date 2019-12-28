@@ -31,11 +31,24 @@ const FieldBuilder = ({
             { 'hidden-label': islabelHidden(field.labelPlacement) }
         )
 
+        console.log(`inputs: `, field.inputs)
         const errorKey = ``
 
         const CustomComponent = customComponents[field.type] || null
         const newField = CustomComponent ? (
-            <CustomComponent key={field.id} />
+            <CustomComponent
+                {...{
+                    field,
+                    inputWrapperClass,
+                    formSettings,
+                    errorKey,
+                    errors,
+                    register,
+                    presetValues,
+                    customComponents,
+                }}
+                key={field.id}
+            />
         ) : (
             fieldByType(
                 field,
