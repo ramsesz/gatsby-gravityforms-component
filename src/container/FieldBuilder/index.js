@@ -1,5 +1,4 @@
 import classnames from 'classnames'
-import _ from 'lodash'
 import get from 'lodash/get'
 import React from 'react'
 
