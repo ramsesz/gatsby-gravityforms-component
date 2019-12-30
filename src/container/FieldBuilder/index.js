@@ -33,9 +33,21 @@ const FieldBuilder = ({
         console.log(`inputs: `, field.inputs)
         const errorKey = ``
 
-        const CustomComponent = customComponents[field.type] || null
-        const newField = CustomComponent ? (
-            <CustomComponent
+        const FieldComponent =
+            customComponents[field.type] ||
+            fieldByType(
+                field,
+                inputWrapperClass,
+                formSettings,
+                errorKey,
+                errors,
+                register,
+                presetValues,
+                customComponents
+            )
+
+        const newField = (
+            <FieldComponent
                 {...{
                     field,
                     inputWrapperClass,
@@ -48,17 +60,6 @@ const FieldBuilder = ({
                 }}
                 key={field.id}
             />
-        ) : (
-            fieldByType(
-                field,
-                inputWrapperClass,
-                formSettings,
-                errorKey,
-                errors,
-                register,
-                presetValues,
-                customComponents
-            )
         )
 
         const result = {
