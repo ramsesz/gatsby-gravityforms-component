@@ -29,15 +29,32 @@ const FieldBuilder = ({
             `gravityform__field__` + field.type,
             `gravityform__field--` + field.size,
             field.cssClass,
-            { 'field-required': field.isRequired },
-            { 'hidden-label': islabelHidden(field.labelPlacement) }
+            {
+                'field-required': field.isRequired,
+            },
+            {
+                'hidden-label': islabelHidden(field.labelPlacement),
+            }
         )
 
         log(`inputs: `, field.inputs)
+        log(field.id)
         const errorKey = ``
 
-        const FieldComponent = () =>
-            customComponents[field.type] ||
+        const Custom = customComponents[field.type]
+        log(`custom:`, Custom)
+        const fieldComponent = customComponents[field.type] ? (
+            <Custom
+                {...{
+                    field,
+                    inputWrapperClass,
+                    formSettings,
+                    errorKey,
+                    register,
+                    presetValues,
+                }}
+            />
+        ) : (
             fieldByType(
                 field,
                 inputWrapperClass,
@@ -45,42 +62,43 @@ const FieldBuilder = ({
                 errorKey,
                 errors,
                 register,
-                presetValues,
-                customComponents
+                presetValues
             )
+        )
 
         // const newField = (
         //     <FieldComponent
-        //         {...{
-        //             field,
-        //             inputWrapperClass,
-        //             formSettings,
-        //             errorKey,
-        //             errors,
-        //             register,
-        //             presetValues,
-        //             customComponents,
-        //         }}
+        //         // {...{
+        //         //     field,
+        //         //     inputWrapperClass,
+        //         //     formSettings,
+        //         //     errorKey,
+        //         //     errors,
+        //         //     register,
+        //         //     presetValues,
+        //         //     customComponents,
+        //         // }}
         //         key={field.id}
         //     />
         // )
-                
+
         const result = {
             ...previous,
             [`section-` + i]: {
-                properties: field.type === `section` && field,
+                properties: field,
                 fields: get(previous, `section-` + i)
-                    ? [...get(previous, `section-` + i).fields, FieldComponent]
-                    : [FieldComponent],
+                    ? [...get(previous, `section-` + i).fields, fieldComponent]
+                    : [fieldComponent],
             },
         }
 
+        console.log(result)
         if (field.type === `section`) {
             i++
         }
         return result
     }, {})
-
+    console.log(sections)
     return Object.keys(sections).map(sectionKey => {
         const section = sections[sectionKey]
         return (
@@ -93,7 +111,7 @@ const FieldBuilder = ({
                         <h3>{section.properties.label}</h3>
                     </div>
                 )}
-                {section.fields}
+                <div>{section.fields}</div>
             </div>
         )
     })
