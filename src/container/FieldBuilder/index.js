@@ -36,7 +36,7 @@ const FieldBuilder = ({
         log(`inputs: `, field.inputs)
         const errorKey = ``
 
-        const FieldComponent =
+        const FieldComponent = () =>
             customComponents[field.type] ||
             fieldByType(
                 field,
@@ -49,29 +49,29 @@ const FieldBuilder = ({
                 customComponents
             )
 
-        const newField = (
-            <FieldComponent
-                {...{
-                    field,
-                    inputWrapperClass,
-                    formSettings,
-                    errorKey,
-                    errors,
-                    register,
-                    presetValues,
-                    customComponents,
-                }}
-                key={field.id}
-            />
-        )
+        // const newField = (
+        //     <FieldComponent
+        //         {...{
+        //             field,
+        //             inputWrapperClass,
+        //             formSettings,
+        //             errorKey,
+        //             errors,
+        //             register,
+        //             presetValues,
+        //             customComponents,
+        //         }}
+        //         key={field.id}
+        //     />
+        // )
                 
         const result = {
             ...previous,
             [`section-` + i]: {
                 properties: field.type === `section` && field,
                 fields: get(previous, `section-` + i)
-                    ? [...get(previous, `section-` + i).fields, newField]
-                    : [newField],
+                    ? [...get(previous, `section-` + i).fields, FieldComponent]
+                    : [FieldComponent],
             },
         }
 
