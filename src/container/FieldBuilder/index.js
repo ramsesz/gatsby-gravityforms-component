@@ -43,8 +43,20 @@ const FieldBuilder = ({
 
         const Custom = customComponents[field.type]
         log(`custom:`, Custom)
-        const fieldComponent = customComponents[field.type] ? (
-            <Custom
+        const fieldComponent = Custom
+            ? Custom
+            : fieldByType(
+                  field,
+                  inputWrapperClass,
+                  formSettings,
+                  errorKey,
+                  errors,
+                  register,
+                  presetValues
+              )
+
+        const fieldH = () => (
+            <fieldComponent
                 {...{
                     field,
                     inputWrapperClass,
@@ -53,19 +65,9 @@ const FieldBuilder = ({
                     register,
                     presetValues,
                 }}
+                key={field.id}
             />
-        ) : (
-            fieldByType(
-                field,
-                inputWrapperClass,
-                formSettings,
-                errorKey,
-                errors,
-                register,
-                presetValues
-            )
         )
-
         // const newField = (
         //     <FieldComponent
         //         // {...{
@@ -87,8 +89,8 @@ const FieldBuilder = ({
             [`section-` + i]: {
                 properties: field,
                 fields: get(previous, `section-` + i)
-                    ? [...get(previous, `section-` + i).fields, fieldComponent]
-                    : [fieldComponent],
+                    ? [...get(previous, `section-` + i).fields, fieldH]
+                    : [fieldH],
             },
         }
 
@@ -104,7 +106,7 @@ const FieldBuilder = ({
         return (
             <div
                 className={`form-field-group ${sectionKey}`}
-                key={`section-` + section.properties.label}
+                key={`section-` + section.properties.id}
             >
                 {section.properties && (
                     <div>
