@@ -94,13 +94,13 @@ const FieldBuilder = ({
             },
         }
 
-        console.log(result)
+        log(result)
         if (field.type === `section`) {
             i++
         }
         return result
     }, {})
-    console.log(sections)
+    log(sections)
     return Object.keys(sections).map(sectionKey => {
         const section = sections[sectionKey]
         return (
