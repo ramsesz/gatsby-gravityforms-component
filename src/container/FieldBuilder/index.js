@@ -64,14 +64,25 @@ const FieldBuilder = ({
                 key={field.id}
             />
         )
-                
+
         const result = {
             ...previous,
             [`section-` + i]: {
                 properties: field.type === `section` && field,
-                fields: get(previous, `section-` + i)
-                    ? [...get(previous, `section-` + i).fields, newField]
-                    : [newField],
+                fields: {
+                    [field.id]: {
+                        ...[`section-` + i][field.id],
+                        ...field,
+                        component: newField
+                    },
+
+                }
+                // get(previous, `section-` + i)
+                //     ? [...get(previous, `section-` + i).fields, newField]
+                //     : [newField],
+                // fields: get(previous, `section-` + i)
+                //     ? [...get(previous, `section-` + i).fields, newField]
+                //     : [newField],
             },
         }
 
